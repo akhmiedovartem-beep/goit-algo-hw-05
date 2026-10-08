@@ -2,12 +2,18 @@ from typing import Callable
 
 
 def generator_numbers(text: str):
-#Повертає всі числа з тексту
-    for word in text.split():
-        try:
-            yield float(word)
-        except ValueError:
-            continue
+    words = text.split()
+
+    for word in words:
+        if "." in word:
+            try:
+                number = float(word)
+
+                if f" {word} " in text:
+                    yield number
+
+            except ValueError:
+                continue
 
 
 def sum_profit(text: str, func: Callable):
@@ -26,4 +32,3 @@ text = (
 total_income = sum_profit(text, generator_numbers)
 
 print(f"Загальний дохід: {total_income}")
-
